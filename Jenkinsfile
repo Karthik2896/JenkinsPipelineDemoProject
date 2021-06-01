@@ -1,29 +1,26 @@
-pipeline{
-agent any
-stages 
-{
-stage('Build') 
-{
-steps{
-echo "Building the Code.........."
-withMaven(maven: 'maven-3.3.3') {
-sh "mvn clean"
-}
-}
-}
-stage('Test') 
-{
-steps{
-echo "Testing the Code.........."
-sh "mvn test"
-}
-}
-stage('Compile') 
-{
-steps{
-echo "Compiling the Project.........."
-sh "mvn compile"
-}
-}
-}
+pipeline {
+    agent any
+    stages {
+        stage('Clean') {
+            steps {
+                withMaven(maven: 'maven-3.3.3') {
+                    sh 'mvn clean'
+                }
+            }
+        }
+        stage('Install') {
+            steps {
+                withMaven(maven: 'maven-3.3.3') {
+                    sh 'mvn install'
+                }
+           }
+        }
+        stage('Package') {
+            steps {
+                withMaven(maven: 'maven-3.3.3') {
+                    sh 'mvn package'
+                }
+            }
+        }
+    }
 }
