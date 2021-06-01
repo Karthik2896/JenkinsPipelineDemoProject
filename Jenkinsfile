@@ -6,7 +6,9 @@ stage('Build')
 {
 steps{
 echo "Building the Code.........."
+withMaven(maven: 'maven-3.3.3') {
 sh "mvn clean"
+}
 }
 }
 stage('Test') 
